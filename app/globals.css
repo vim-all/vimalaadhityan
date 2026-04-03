@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Soft creamy light mode (anti-blinding) */
+  --background: #F4F3EF;
+  --foreground: #111111;
+  --accent: #FF4D00; /* Vivid Orange for punch */
+}
+
+.dark {
+  /* Pure abyss dark mode */
+  --background: #050505;
+  --foreground: #F5F5F5;
+  --accent: #E0FF22; /* Neon Lime/Yellow for punch */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent: var(--accent);
+  --font-display: var(--font-syne);
+  --font-body: var(--font-space);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+  /* hide default scrollbar for aesthetics */
+  scrollbar-width: none; 
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Noise overlay for that premium agency texture */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Radial Theme Transition Animation */
+::view-transition-group(root) {
+  animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
+  animation-duration: 1.2s;
+}
+
+::view-transition-new(root) {
+  mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="50" fill="white"/%3E%3C/svg%3E') center / 0 no-repeat;
+  animation: none;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 100;
+}
+.dark::view-transition-new(root) {
+  z-index: 99;
 }
