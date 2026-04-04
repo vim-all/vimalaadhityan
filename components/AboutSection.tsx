@@ -68,11 +68,11 @@ function BugParticle({ i }: { i: number }) {
   );
 }
 
-function TechBubble({ name, baseDelay, speedMult }: { name: string, baseDelay: number, speedMult: number }) {
+function TechBubble({ name, baseDelay, speedMult, constraintsRef }: { name: string, baseDelay: number, speedMult: number, constraintsRef: any }) {
   return (
     <motion.div
       drag
-      dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
+      dragConstraints={constraintsRef}
       dragElastic={0.1}
       whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 20px rgba(224,255,34,0.3)" }}
       whileDrag={{ scale: 1.3, zIndex: 50, cursor: "grabbing" }}
@@ -97,6 +97,7 @@ function TechBubble({ name, baseDelay, speedMult }: { name: string, baseDelay: n
 
 export function AboutSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const techConstraintsRef = useRef<HTMLDivElement>(null);
   const [jitter, setJitter] = useState(false);
   const [bugs, setBugs] = useState(false);
   const [lightning, setLightning] = useState(false);
@@ -135,7 +136,7 @@ export function AboutSection() {
   const triggerBugSwarm = () => { setBugs(true); setTimeout(() => setBugs(false), 3000); };
   const triggerLightning = () => { setLightning(true); setTimeout(() => setLightning(false), 300); };
   const triggerCaffeine = () => { setJitter(true); setTimeout(() => setJitter(false), 1200); };
-  const toggleSleep = () => setSleep(!sleep);
+  const triggerSleep = () => { setSleep(true); setTimeout(() => setSleep(false), 6000); };
 
   const bioParallaxX = useTransform(smoothMouseX, [-0.5, 0.5], [-30, 30]);
   const bioParallaxY = useTransform(smoothMouseY, [-0.5, 0.5], [-30, 30]);
@@ -201,13 +202,13 @@ export function AboutSection() {
             </div>
           </BentoCard>
 
-          {/* Kinetic Stack Pit */}
-          <BentoCard className="lg:col-span-4 lg:row-span-2 overflow-visible" title="KINETIC_STACK">
-            <div className="flex flex-wrap gap-4 justify-center items-center h-full pt-10">
+          {/* Kinetic Stack Pit - Fixed Containment & Initial Layout */}
+          <BentoCard className="lg:col-span-4 lg:row-span-2 overflow-hidden" title="KINETIC_STACK">
+            <div ref={techConstraintsRef} className="flex flex-wrap gap-4 justify-center items-center h-full pt-16 pb-24 px-6">
               {techStack.map((name, i) => (
-                <TechBubble key={name} name={name} baseDelay={i} speedMult={overclock ? 2 : 1} />
+                <TechBubble key={name} name={name} baseDelay={i} speedMult={overclock ? 2 : 1} constraintsRef={techConstraintsRef} />
               ))}
-              <div className="absolute bottom-8 flex flex-col items-center gap-2 opacity-30 animate-pulse">
+              <div className="absolute bottom-8 flex flex-col items-center gap-2 opacity-30 animate-pulse pointer-events-none">
                 <p className="font-mono text-[8px] uppercase tracking-[0.4em] select-none text-accent font-black">DRAG_TO_TEST_EQUILIBRIUM</p>
               </div>
             </div>
@@ -218,7 +219,7 @@ export function AboutSection() {
             <div className="grid grid-cols-2 gap-8 w-full p-6 relative">
               {[
                 { icon: Coffee, label: "Caffeine", val: "110%", col: "text-accent", fn: triggerCaffeine },
-                { icon: Moon, label: "Sleep", val: "OFFLINE", col: "text-orange-400", fn: toggleSleep },
+                { icon: Moon, label: "Sleep", val: "OFFLINE", col: "text-orange-400", fn: triggerSleep },
                 { icon: BugIcon, label: "Bugs", val: "404", col: "text-blue-400", fn: triggerBugSwarm },
                 { icon: Zap, label: "Energy", val: "PEAK", col: "text-accent", fn: triggerLightning }
               ].map(({ icon: Icon, label, val, col, fn }) => (
