@@ -74,23 +74,27 @@ function TechBubble({ name, baseDelay, speedMult, constraintsRef }: { name: stri
       drag
       dragConstraints={constraintsRef}
       dragElastic={0.1}
-      whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 20px rgba(224,255,34,0.3)" }}
-      whileDrag={{ scale: 1.3, zIndex: 50, cursor: "grabbing" }}
-      animate={{
-        x: [0, Math.sin(baseDelay) * 15, 0],
-        y: [0, Math.cos(baseDelay) * 15, 0]
-      }}
-      transition={{
-        duration: (4 + baseDelay) / speedMult,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
-      className="bg-accent/10 border border-accent/20 px-5 py-2.5 rounded-full cursor-grab active:cursor-grabbing font-mono text-[11px] uppercase tracking-widest text-accent whitespace-nowrap shadow-sm group hover:border-accent/40 transition-colors"
+      whileHover={{ scale: 1.15, rotate: 2, zIndex: 50 }}
+      whileDrag={{ scale: 1.3, zIndex: 100, cursor: "grabbing" }}
+      className="cursor-grab active:cursor-grabbing relative"
     >
-      <div className="flex items-center gap-2">
-        {name}
-        <MousePointer2 className="w-3 h-3 opacity-0 group-hover:opacity-50 transition-opacity" />
-      </div>
+      <motion.div
+        animate={{
+          x: [0, Math.sin(baseDelay) * 15, 0],
+          y: [0, Math.cos(baseDelay) * 15, 0]
+        }}
+        transition={{
+          duration: (4 + baseDelay) / speedMult,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="bg-accent/10 border border-accent/20 px-5 py-2.5 rounded-full font-mono text-[11px] uppercase tracking-widest text-accent whitespace-nowrap group hover:border-accent/40 transition-colors shadow-sm"
+      >
+        <div className="flex items-center gap-2">
+          {name}
+          <MousePointer2 className="w-3 h-3 opacity-0 group-hover:opacity-50 transition-opacity" />
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
