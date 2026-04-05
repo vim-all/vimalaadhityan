@@ -16,30 +16,37 @@ interface OrbitalNodeProps {
 }
 
 function OrbitalNode({ label, value, icon: Icon, radius, duration, initAngle = 0, reverse = false }: OrbitalNodeProps) {
+  const spinKeyframe = reverse ? "orbit-spin-reverse" : "orbit-spin";
+  const counterSpinKeyframe = reverse ? "orbit-spin" : "orbit-spin-reverse";
+
   return (
-    <motion.div
-      initial={{ rotate: initAngle }}
-      animate={{ rotate: reverse ? initAngle - 360 : initAngle + 360 }}
-      transition={{ duration, repeat: Infinity, ease: "linear" }}
+    <div 
       className="absolute flex items-center justify-center pointer-events-none"
-      style={{ width: radius * 2, height: radius * 2 }}
+      style={{ transform: `rotate(${initAngle}deg)` }}
     >
-      <motion.div
-        initial={{ rotate: -initAngle }}
-        animate={{ rotate: reverse ? 360 - initAngle : -360 - initAngle }}
-        transition={{ duration, repeat: Infinity, ease: "linear" }}
-        style={{ x: radius }}
-        className="flex items-center gap-4 px-4 py-2 border border-accent/20 backdrop-blur-md bg-accent/5 rounded-full shadow-[0_0_20px_rgba(var(--color-accent),0.1)] transition-colors hover:bg-accent/10 pointer-events-auto"
+      <div
+        className="flex items-center justify-center"
+        style={{ 
+          width: radius * 2, height: radius * 2,
+          animation: `${spinKeyframe} ${duration}s linear infinite`
+        }}
       >
-        <div className="w-8 h-8 rounded-full border border-accent/30 flex items-center justify-center bg-accent/10">
-          <Icon className="w-4 h-4 text-accent" />
+        <div style={{ transform: `translateX(${radius}px) rotate(${-initAngle}deg)` }}>
+          <div
+            className="flex items-center gap-4 px-4 py-2 border border-accent/20 backdrop-blur-md bg-accent/5 rounded-full shadow-[0_0_20px_rgba(var(--color-accent),0.1)] transition-colors hover:bg-accent/10 pointer-events-auto"
+            style={{ animation: `${counterSpinKeyframe} ${duration}s linear infinite` }}
+          >
+            <div className="w-8 h-8 rounded-full border border-accent/30 flex items-center justify-center bg-accent/10">
+              <Icon className="w-4 h-4 text-accent" />
+            </div>
+            <div className="flex flex-col whitespace-nowrap">
+              <span className="text-[7px] font-mono uppercase tracking-widest text-accent font-black">{label}</span>
+              <span className="text-[10px] font-mono font-bold text-foreground/90">{value}</span>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col whitespace-nowrap">
-          <span className="text-[7px] font-mono uppercase tracking-widest text-accent font-black">{label}</span>
-          <span className="text-[10px] font-mono font-bold text-foreground/90">{value}</span>
-        </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
@@ -206,7 +213,7 @@ export function HeroSection() {
 
       {/* HUD: Interaction Guides */}
       <div className="absolute bottom-10 left-10 right-10 z-40 flex justify-between items-end pointer-events-none">
-        <div className="flex items-center gap-6 group pointer-events-auto cursor-help backdrop-blur-xl p-3 border border-white/5 rounded-xl bg-foreground/[0.03]">
+        <div className="flex items-center gap-6 group pointer-events-auto cursor-help backdrop-blur-xl p-3 border border-white/5 rounded-xl bg-foreground/3">
           <div className="w-10 h-10 rounded-full border border-accent/20 flex items-center justify-center group-hover:bg-accent/10 transition-all shadow-[0_0_15px_rgba(var(--color-accent),0)] group-hover:shadow-[0_0_15px_rgba(var(--color-accent),0.3)]">
             <Maximize2 className="w-4 h-4 text-accent transition-all animate-pulse" />
           </div>
@@ -216,7 +223,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6 group pointer-events-auto backdrop-blur-xl p-3 border border-white/5 rounded-xl bg-foreground/[0.03]">
+        <div className="flex items-center gap-6 group pointer-events-auto backdrop-blur-xl p-3 border border-white/5 rounded-xl bg-foreground/3">
           <div className="flex flex-col items-end">
             <span className="text-[7px] font-mono uppercase tracking-[0.6em] text-accent font-black">Satellite</span>
             <span className="font-mono text-[10px] uppercase tracking-widest text-foreground transition-colors group-hover:text-accent">UPLINK_LIVE</span>

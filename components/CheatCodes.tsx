@@ -51,7 +51,7 @@ export function CheatCodes() {
           initial={{ opacity: 0, y: 50, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -50, scale: 0.8 }}
-          className="fixed bottom-12 left-1/2 -translate-x-1/2 z-[1000] pointer-events-none"
+          className="fixed bottom-12 left-1/2 -translate-x-1/2 z-1000 pointer-events-none"
         >
           <div className="relative overflow-hidden bg-foreground text-background px-10 py-4 rounded-xl font-mono font-black border border-accent/20 group">
              <div className="flex flex-col items-center gap-1">
