@@ -11,7 +11,7 @@ export function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-xl font-display font-extrabold tracking-tighter mix-blend-difference text-white uppercase flex items-center gap-2"
+          className="text-xs md:text-lg font-display font-extrabold tracking-tighter mix-blend-difference text-white uppercase flex items-center gap-2"
         >
           Vimalaadhityan
         </Link>

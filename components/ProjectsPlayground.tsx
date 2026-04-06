@@ -138,10 +138,14 @@ function ParticleMorphingScene({ themedProjects }: { themedProjects: any[] }) {
     pointsRef.current.rotation.y += delta * 0.15;
     pointsRef.current.rotation.x += delta * 0.05;
 
-    // Position on the right side of the screen
+    // Position on the right side of the screen - move to center on mobile
     const { viewport } = state;
-    const targetX = viewport.width > 5 ? viewport.width / 3.5 : 0;
+    const isMobile = viewport.width < 10; // Simple threshold for three.js viewport units
+    const targetX = isMobile ? 0 : viewport.width / 3.5;
+    const targetY = isMobile ? viewport.height / 4 : 0; // Move up slightly on mobile
+
     pointsRef.current.position.x = THREE.MathUtils.lerp(pointsRef.current.position.x, targetX, delta * 3);
+    pointsRef.current.position.y = THREE.MathUtils.lerp(pointsRef.current.position.y, targetY, delta * 3);
   });
 
   return (
@@ -186,15 +190,15 @@ function ProjectItem({ p, idx, smoothProgress, step }: { p: any, idx: number, sm
       </div>
 
       <h3
-        className="text-6xl md:text-[6rem] lg:text-[7rem] xl:text-[8rem] leading-[0.85] font-display font-black uppercase text-foreground tracking-tighter mix-blend-difference pointer-events-auto wrap-break-word whitespace-normal max-w-full"
+        className="text-4xl md:text-[6rem] lg:text-[7rem] xl:text-[8rem] leading-[0.85] font-display font-black uppercase text-foreground tracking-tighter mix-blend-difference pointer-events-auto wrap-break-word hyphens-auto whitespace-normal max-w-full"
         style={{ color: p.color, WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}
       >
         {p.name}
       </h3>
 
-      <div className="mt-8 md:mt-12 relative backdrop-blur-md bg-background/20 border border-foreground/5 p-6 md:p-8 rounded-2xl shadow-2xl pointer-events-auto max-w-xl lg:max-w-2xl">
+      <div className="mt-6 md:mt-12 relative backdrop-blur-md bg-background/20 border border-foreground/5 p-5 md:p-8 rounded-2xl shadow-2xl pointer-events-auto max-w-xl lg:max-w-2xl">
         <div className="absolute inset-0 bg-linear-to-br from-foreground/5 to-transparent rounded-2xl pointer-events-none"></div>
-        <p className="text-xl lg:text-3xl font-light text-foreground/90 leading-snug">
+        <p className="text-lg lg:text-3xl font-light text-foreground/90 leading-snug">
           {p.desc}
         </p>
         <div className="mt-8 flex flex-col pt-6 border-t border-foreground/10">
@@ -279,7 +283,7 @@ export function ProjectsPlayground() {
               filter: useTransform(useTransform(smoothProgress, [0.84, 0.94], [10, 0]), (v) => `blur(${v}px)`),
             }}
           >
-            <h3 className="text-4xl md:text-7xl font-display font-black uppercase text-foreground mb-4 mix-blend-difference">
+            <h3 className="text-3xl md:text-7xl font-display font-black uppercase text-foreground mb-4 mix-blend-difference px-4">
               Ready for <span className="text-accent">more?</span>
             </h3>
             <p className="font-mono text-sm md:text-base opacity-50 uppercase tracking-widest mt-4">

@@ -107,18 +107,18 @@ export function ContactSection() {
           />
 
           <div className="z-10 w-full max-w-[1400px] mx-auto mt-10 md:mt-20">
-            <p className="font-mono uppercase tracking-widest text-background/50 mb-8 border-b border-background/20 pb-4 inline-block">
+            <p className="font-mono uppercase tracking-widest text-background/50 mb-6 md:mb-8 border-b border-background/20 pb-4 inline-block text-[10px] md:text-xs">
               // LET&apos;S CONNECT
             </p>
 
             {/* Extremely brutalist magnetic typography block */}
             <div className="flex flex-col cursor-crosshair w-full overflow-visible">
-              <h2 className="text-[14vw] md:text-[11vw] flex flex-row flex-nowrap whitespace-nowrap font-display font-black leading-[0.8] tracking-tighter uppercase text-background">
+              <h2 className="text-[11vw] sm:text-7xl md:text-[11vw] flex flex-row flex-nowrap whitespace-nowrap font-display font-black leading-none md:leading-[0.8] tracking-tighter uppercase text-background pb-2 md:pb-0">
                 {phrase1.map((char, index) => (
                   <MagneticLetter key={index} char={char} mouseX={mouseX} mouseY={mouseY} />
                 ))}
               </h2>
-              <h2 className="text-[13vw] md:text-[10vw] flex flex-row flex-nowrap whitespace-nowrap font-display font-black leading-[0.8] tracking-tighter uppercase text-background md:ml-[8vw]">
+              <h2 className="text-[11vw] sm:text-7xl md:text-[10vw] flex flex-row flex-nowrap whitespace-nowrap font-display font-black leading-none md:leading-[0.8] tracking-tighter uppercase text-background md:ml-[8vw]">
                 {phrase2.map((char, index) => (
                   <MagneticLetter key={index} char={char} mouseX={mouseX} mouseY={mouseY} />
                 ))}
@@ -130,7 +130,7 @@ export function ContactSection() {
                 <a
                   href="mailto:vimalaadhityan@gmail.com"
                   data-cursor="VIMALAADHITYAN"
-                  className="text-3xl md:text-5xl font-display font-medium hover:italic hover:text-accent transition-all duration-300 w-fit relative group cursor-none"
+                  className="text-xl sm:text-3xl md:text-5xl font-display font-medium hover:italic hover:text-accent transition-all duration-300 w-fit relative group cursor-none"
                 >
                   vimalaadhityan@gmail.com
                   <span className="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100" />

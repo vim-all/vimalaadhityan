@@ -40,10 +40,14 @@ function BlueprintModule({ exp, index, scrollYProgress }: { exp: any, index: num
   return (
     <motion.div
       style={{ opacity, x, scale }}
-      className={`absolute top-1/2 -translate-y-1/2 ${isRight ? 'left-[55%]' : 'right-[55%]'} w-[35vw] max-w-[500px] z-20`}
+      className={`absolute top-1/2 -translate-y-1/2 
+        ${isRight
+          ? 'left-12 md:left-[55%]'
+          : 'left-12 md:left-auto md:right-[55%]'} 
+        w-[calc(100vw-3.5rem)] md:w-[35vw] max-w-[500px] z-20`}
     >
-      {/* Connecting Technical Line */}
-      <svg className="absolute top-1/2 -translate-y-1/2 w-[20vw] h-px overflow-visible pointer-events-none"
+      {/* Connecting Technical Line - Hidden on absolute mobile to avoid clutter */}
+      <svg className="absolute top-1/2 -translate-y-1/2 w-[20vw] h-px overflow-visible pointer-events-none hidden md:block"
         style={{ left: isRight ? '-20vw' : '100%' }}>
         <motion.line
           x1={isRight ? "100%" : "0%"}
@@ -85,7 +89,7 @@ function BlueprintModule({ exp, index, scrollYProgress }: { exp: any, index: num
            // {exp.date}
         </span>
 
-        <h3 className="text-3xl md:text-4xl font-display font-black uppercase leading-tight tracking-tighter mb-4 text-foreground">
+        <h3 className="text-xl sm:text-3xl md:text-4xl font-display font-black uppercase leading-tight tracking-tighter mb-4 text-foreground">
           {exp.role}
         </h3>
 
@@ -158,17 +162,17 @@ export function ExperienceSection() {
           style={{ backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
         {/* Section Label: Fixed Overlap by Centering */}
-        <div className="absolute top-[8vh] left-1/2 -translate-x-1/2 z-30 font-mono text-center w-full">
+        <div className="absolute top-[14vh] md:top-[8vh] left-1/2 -translate-x-1/2 z-30 font-mono text-center w-full px-4">
           <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <p className="text-accent text-[10px] font-bold tracking-[0.8em] mb-2 uppercase select-none">// STAGES OF CRAFT</p>
-            <h3 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter mix-blend-difference">
+            <p className="text-accent text-[8px] md:text-[10px] font-bold tracking-[0.5em] md:tracking-[0.8em] mb-2 uppercase select-none">// STAGES OF CRAFT</p>
+            <h3 className="text-xl md:text-5xl font-display font-black uppercase tracking-tighter mix-blend-difference">
               Professional <span className="text-accent italic font-light">Genesis</span>
             </h3>
           </motion.div>
         </div>
 
-        {/* Central Vertical Axis */}
-        <div className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px z-10 transition-colors">
+        {/* Central Vertical Axis - Responsive Position */}
+        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 md:-translate-x-1/2 w-px z-10 transition-colors">
           <svg className="w-full h-full overflow-visible">
             <motion.line
               x1="0" y1="0" x2="0" y2="100%"
@@ -186,7 +190,7 @@ export function ExperienceSection() {
         </div>
 
         {/* HUD Data Overlay (Floating) */}
-        <div className="absolute bottom-[8vh] right-[5vw] font-mono text-[10px] md:text-xs text-foreground/30 z-30 space-y-4 text-right">
+        <div className="absolute bottom-[4vh] md:bottom-[8vh] right-[5vw] font-mono text-[10px] md:text-xs text-foreground/30 z-30 space-y-4 text-right">
           <div className="flex flex-col gap-1 items-end border-b border-foreground/5 pb-4">
             <span className="text-accent text-[8px] tracking-widest font-black uppercase">VELOCITY_DENSITY</span>
             <HUDCounter label="SPD: " value={smoothVelocity} />
