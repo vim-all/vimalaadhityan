@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useSpring, useTransform, useMotionValue, AnimatePresence } from "framer-motion";
-import { Coffee, Zap, Moon, Bug as BugIcon, Terminal, Sparkles, Monitor, Layers, MousePointer2 } from "lucide-react";
+import { Coffee, Zap, Moon, Bug as BugIcon, Terminal, Sparkles, Monitor, Layers, MousePointer2, Briefcase, Box, Cpu, ShieldAlert, LineChart, Database } from "lucide-react";
 
 interface BentoCardProps {
   children: React.ReactNode;
@@ -146,7 +146,7 @@ export function AboutSection() {
   const bioParallaxY = useTransform(smoothMouseY, [-0.5, 0.5], [-30, 30]);
 
   const techStack = [
-    "Next.js", "Three.js", "GLSL", "React", "GSAP", "TailwindCSS", "FramerMotion", "TypeScript"
+    "Node.js", "React.js", "Next.js", "TypeScript", "Python", "Go", "Rust", "GenAI", "PostgreSQL", "MongoDB",
   ];
 
   return (
@@ -192,10 +192,8 @@ export function AboutSection() {
             mouseY={smoothMouseY}
           >
             <motion.div style={{ x: bioParallaxX, y: bioParallaxY, translateZ: 80 }} className="relative">
-              <p className="text-xl lg:text-4xl font-light leading-snug text-foreground/90 lowercase italic tracking-tight">
-                i build digital symphonies where raw engineering meets radical design intuition.
-                my process is a high-fidelity feedback loop focused on robust performance
-                and deterministic scalability across the modern web stack.
+              <p className="text-xl lg:text-3xl font-light leading-snug text-foreground/90 italic tracking-tight">
+                An unusually curious student who loves building things—sometimes full-stack apps, sometimes random experiments just to understand how stuff works. I'm currently diving into backend systems, apis, and making ui's that actually feel good to use. I enjoy solving problems, breaking things (and then fixing them), and learning by doing.
               </p>
             </motion.div>
             <div className="mt-12 flex items-center gap-6 group cursor-pointer h-12">

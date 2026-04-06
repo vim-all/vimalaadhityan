@@ -31,9 +31,11 @@ export function CheatCodes() {
     
     if (code === "GOD") {
       document.documentElement.classList.add("animate-breach-overload");
+      document.documentElement.dataset.code = "GOD";
       setFeedback({ code, status: 'ACTIVATED' });
       setTimeout(() => {
         document.documentElement.classList.remove("animate-breach-overload");
+        delete document.documentElement.dataset.code;
         setFeedback({ code, status: 'DEACTIVATED' });
         setTimeout(() => setFeedback(null), 2000);
       }, 5000);

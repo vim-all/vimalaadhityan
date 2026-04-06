@@ -19,8 +19,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "V.A | Creative Developer",
-  description: "Award-winning creative developer crafting digital experiences.",
+  title: "Vimalaadhityan",
+  description: "Software developer who loves building, breaking, and fixing things with radical curiosity.",
 };
 
 export default function RootLayout({

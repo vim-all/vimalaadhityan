@@ -6,22 +6,22 @@ import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, useVel
 const experiences = [
   {
     id: 1,
-    role: "Lead Creative Technologist",
-    company: "Studio Obsidian",
-    date: "2024 - Present",
-    desc: "Spearheading the intersection of high-end design and complex engineering, building immersive digital experiences for global brands.",
-    tech: ["Three.js", "Next.js", "GSAP", "GLSL"],
-    coord: "[ Lat. 34.05 / Long. -118.24 ]",
+    role: "Full Stack Developer Intern",
+    company: "XTechOn",
+    date: "Jan 2026 – Present",
+    desc: "Architected a multi-tenant POS platform with RBAC-driven admin dashboard and PostgreSQL optimizations, reducing API latency by 35%.",
+    tech: ["React", "Node.js", "PostgreSQL", "Multi-tenant", "RBAC"],
+    coord: "[ Lat. 28.61 / Long. 77.20 ]",
     style: "glass"
   },
   {
     id: 2,
-    role: "Senior Frontend Engineer",
-    company: "Neon Agency",
-    date: "2022 - 2024",
-    desc: "Developed high-performance web applications with a focus on fluid interactions and scalable architecture in a fast-paced agency environment.",
-    tech: ["React", "TypeScript", "Framer Motion", "Tailwind"],
-    coord: "[ Lat. 40.71 / Long. -74.00 ]",
+    role: "Web Developer Intern",
+    company: "CloudTechner",
+    date: "May 2025 – July 2025",
+    desc: "Delivered a booking platform with dynamic validation and atomic reservation logic, integrating PayU payment gateway for 99.8% reliability.",
+    tech: ["Next.js", "MySQL", "JavaScript", "PayU", "Atomic Logic"],
+    coord: "[ Lat. 28.45 / Long. 77.02 ]",
     style: "glass"
   },
 ];
@@ -85,7 +85,7 @@ function BlueprintModule({ exp, index, scrollYProgress }: { exp: any, index: num
            // {exp.date}
         </span>
 
-        <h3 className="text-3xl md:text-5xl font-display font-black uppercase leading-tight tracking-tighter mb-4 text-foreground">
+        <h3 className="text-3xl md:text-4xl font-display font-black uppercase leading-tight tracking-tighter mb-4 text-foreground">
           {exp.role}
         </h3>
 
@@ -159,12 +159,12 @@ export function ExperienceSection() {
 
         {/* Section Label: Fixed Overlap by Centering */}
         <div className="absolute top-[8vh] left-1/2 -translate-x-1/2 z-30 font-mono text-center w-full">
-           <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <p className="text-accent text-[10px] font-bold tracking-[0.8em] mb-2 uppercase select-none">// STAGES OF CRAFT</p>
-              <h3 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter mix-blend-difference">
-                 Professional <span className="text-accent italic font-light">Genesis</span>
-              </h3>
-           </motion.div>
+          <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <p className="text-accent text-[10px] font-bold tracking-[0.8em] mb-2 uppercase select-none">// STAGES OF CRAFT</p>
+            <h3 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter mix-blend-difference">
+              Professional <span className="text-accent italic font-light">Genesis</span>
+            </h3>
+          </motion.div>
         </div>
 
         {/* Central Vertical Axis */}
@@ -187,10 +187,10 @@ export function ExperienceSection() {
 
         {/* HUD Data Overlay (Floating) */}
         <div className="absolute bottom-[8vh] right-[5vw] font-mono text-[10px] md:text-xs text-foreground/30 z-30 space-y-4 text-right">
-           <div className="flex flex-col gap-1 items-end border-b border-foreground/5 pb-4">
-              <span className="text-accent text-[8px] tracking-widest font-black uppercase">VELOCITY_DENSITY</span>
-              <HUDCounter label="SPD: " value={smoothVelocity} />
-           </div>
+          <div className="flex flex-col gap-1 items-end border-b border-foreground/5 pb-4">
+            <span className="text-accent text-[8px] tracking-widest font-black uppercase">VELOCITY_DENSITY</span>
+            <HUDCounter label="SPD: " value={smoothVelocity} />
+          </div>
           <div className="flex justify-end gap-4">
             <span>SCANNER ACTIVE</span>
             <span className="w-2 h-2 rounded-full bg-accent animate-ping" />

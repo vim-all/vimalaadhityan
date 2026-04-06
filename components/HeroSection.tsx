@@ -129,7 +129,11 @@ export function HeroSection() {
   if (!mounted) return null;
 
   return (
-    <section id="hero" className="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center bg-background text-foreground selection:bg-accent/40 perspective-2000">
+    <section 
+      id="hero" 
+      className="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center bg-background text-foreground selection:bg-accent/40 perspective-2000 group"
+      data-code-status={typeof document !== 'undefined' ? document.documentElement.dataset.code : ''}
+    >
 
       {/* 3D Starfield Background */}
       <Starfield />
@@ -137,7 +141,8 @@ export function HeroSection() {
       {/* GOD MODE Overlay Layers */}
       <div className="absolute inset-0 z-50 pointer-events-none opacity-0 group-data-[code=GOD]:opacity-100 transition-opacity duration-300">
         <div className="absolute inset-0 animate-pulse-vignette" />
-        <div className="absolute inset-0 bg-[repeating-linear-gradient(transparent,transparent_2px,rgba(var(--color-accent),0.1)_2px,rgba(var(--color-accent),0.1)_4px)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[repeating-linear-gradient(transparent,transparent_2px,rgba(var(--color-accent),0.2)_2px,rgba(var(--color-accent),0.2)_4px)] pointer-events-none mix-blend-overlay" />
+        <div className="absolute inset-0 bg-accent/5 animate-pulse" />
       </div>
 
       {/* Orbital Tags System */}
@@ -166,7 +171,7 @@ export function HeroSection() {
           className={`flex flex-col items-center gap-0 ${glitch ? 'animate-breach-overload' : ''}`}
         >
           <div className="flex flex-wrap justify-center overflow-visible">
-            {"CRAFTING".split("").map((c, i) => (
+            {"BUILDING.".split("").map((c, i) => (
               <motion.h1
                 key={i}
                 onClick={handleLetterClick}
@@ -179,7 +184,7 @@ export function HeroSection() {
           </div>
 
           <div className="flex flex-wrap justify-center overflow-visible">
-            {"DIGITAL".split("").map((c, i) => (
+            {"BREAKING.".split("").map((c, i) => (
               <motion.h1
                 key={i}
                 onClick={handleLetterClick}
@@ -192,7 +197,7 @@ export function HeroSection() {
           </div>
 
           <div className="flex flex-wrap justify-center overflow-visible">
-            {"MAGIC.".split("").map((c, i) => (
+            {"FIXING.".split("").map((c, i) => (
               <motion.h1
                 key={i}
                 onClick={handleLetterClick}

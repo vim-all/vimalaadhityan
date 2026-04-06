@@ -16,7 +16,7 @@ function MagneticLetter({ char, mouseX, mouseY }: { char: string, mouseX: any, m
       if (!ref.current) return;
       const x = mouseX.get();
       const y = mouseY.get();
-      
+
       // If the mouse is out of bounds or not initialized
       if (x === -1000) {
         offset.x.set(0);
@@ -64,7 +64,7 @@ function MagneticLetter({ char, mouseX, mouseY }: { char: string, mouseX: any, m
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  
+
   // High performance tracking bypassing React renders
   const mouseX = useMotionValue(-1000);
   const mouseY = useMotionValue(-1000);
@@ -118,7 +118,7 @@ export function ContactSection() {
                   <MagneticLetter key={index} char={char} mouseX={mouseX} mouseY={mouseY} />
                 ))}
               </h2>
-              <h2 className="text-[14vw] md:text-[11vw] flex flex-row flex-nowrap whitespace-nowrap font-display font-black leading-[0.8] tracking-tighter uppercase text-background md:ml-[10vw]">
+              <h2 className="text-[13vw] md:text-[10vw] flex flex-row flex-nowrap whitespace-nowrap font-display font-black leading-[0.8] tracking-tighter uppercase text-background md:ml-[8vw]">
                 {phrase2.map((char, index) => (
                   <MagneticLetter key={index} char={char} mouseX={mouseX} mouseY={mouseY} />
                 ))}
@@ -128,10 +128,12 @@ export function ContactSection() {
             <div className="mt-16 md:mt-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-12 border-t border-background/20 pt-8 pb-12 w-full">
               <div className="flex flex-col gap-6 max-w-xl">
                 <a
-                  href="mailto:hello@creative.dev"
-                  className="text-3xl md:text-5xl font-display font-medium hover:italic hover:text-accent transition-all duration-300 w-fit"
+                  href="mailto:vimalaadhityan@gmail.com"
+                  data-cursor="VIMALAADHITYAN"
+                  className="text-3xl md:text-5xl font-display font-medium hover:italic hover:text-accent transition-all duration-300 w-fit relative group cursor-none"
                 >
-                  hello@creative.dev
+                  vimalaadhityan@gmail.com
+                  <span className="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100" />
                 </a>
                 <p className="text-background/60 font-mono text-sm leading-relaxed">
                   I&apos;m always looking for ambitious projects and people.
@@ -144,16 +146,12 @@ export function ContactSection() {
                   Twitter
                   <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-pink transition-all duration-300 group-hover:w-full group-hover:left-0" />
                 </a>
-                <a href="#" className="hover:text-accent transition-colors relative group">
+                <a href="https://www.linkedin.com/in/vimalaadhityan/" target="_blank" className="hover:text-accent transition-colors relative group">
                   LinkedIn
                   <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
                 </a>
-                <a href="#" className="hover:text-accent transition-colors relative group">
+                <a href="https://github.com/vim-all" target="_blank" className="hover:text-accent transition-colors relative group">
                   Github
-                  <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
-                </a>
-                <a href="#" className="hover:text-accent transition-colors relative group">
-                  Instagram
                   <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
                 </a>
               </div>

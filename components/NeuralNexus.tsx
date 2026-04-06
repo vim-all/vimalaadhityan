@@ -31,27 +31,33 @@ function Core({ theme }: { theme: string }) {
     const time = state.clock.getElapsedTime();
     const { x, y } = state.pointer;
     
+    // Detect GOD MODE status
+    const isGodMode = typeof document !== 'undefined' && document.documentElement.dataset.code === 'GOD';
+    const speedMultiplier = isGodMode ? 20 : 1;
+    const pulseFactor = isGodMode ? 0.2 : 0.08;
+
     if (outerRef.current) {
-      outerRef.current.rotation.y += delta * 0.2;
-      outerRef.current.rotation.x += delta * 0.1;
-      const pulse = 1 + Math.sin(time * 0.5) * 0.08;
+      outerRef.current.rotation.y += delta * 0.2 * speedMultiplier;
+      outerRef.current.rotation.x += delta * 0.1 * speedMultiplier;
+      const pulse = 1 + Math.sin(time * (isGodMode ? 10 : 0.5)) * pulseFactor;
       outerRef.current.scale.set(pulse, pulse, pulse);
     }
 
     if (innerRef.current) {
-        innerRef.current.rotation.y -= delta * 0.4;
-        innerRef.current.rotation.z += delta * 0.2;
+        innerRef.current.rotation.y -= delta * 0.4 * speedMultiplier;
+        innerRef.current.rotation.z += delta * 0.2 * speedMultiplier;
     }
 
     if (lightRef.current) {
-        // Spotlight follows mouse for "flashlight" effect on refractive edges
         lightRef.current.position.set(x * 10, y * 10, 5);
         lightRef.current.lookAt(0, 0, 0);
+        lightRef.current.intensity = isGodMode ? 50 : 10;
     }
 
-    // Follow mouse with slight lag - Camera zoom logic
-    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, x * 3, 0.05);
-    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, y * 3, 0.05);
+    // Camera jitter in GOD MODE
+    const jitter = isGodMode ? (Math.random() - 0.5) * 0.5 : 0;
+    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, x * 3 + jitter, 0.05);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, y * 3 + jitter, 0.05);
     state.camera.lookAt(0, 0, 0);
   });
 
@@ -65,6 +71,8 @@ function Core({ theme }: { theme: string }) {
     color: theme === "light" ? "#FF4D00" : "#E0FF22",
   };
 
+  const isGodMode = typeof document !== 'undefined' && document.documentElement.dataset.code === 'GOD';
+
   return (
     <>
       <spotLight 
@@ -77,7 +85,7 @@ function Core({ theme }: { theme: string }) {
       />
 
       {/* Outer Refractive Shell */}
-      <Float speed={3} rotationIntensity={0.5} floatIntensity={2}>
+      <Float speed={isGodMode ? 20 : 3} rotationIntensity={isGodMode ? 2 : 0.5} floatIntensity={isGodMode ? 5 : 2}>
         <mesh ref={outerRef} geometry={torusKnotGeom}>
           <MeshTransmissionMaterial {...glassProps} />
         </mesh>
@@ -85,23 +93,23 @@ function Core({ theme }: { theme: string }) {
 
       {/* Inner Metallic Wireframe Core */}
       <group ref={innerRef}>
-        <mesh scale={1.2}>
+        <mesh scale={isGodMode ? 1.5 : 1.2}>
            <icosahedronGeometry args={[1, 2]} />
            <meshStandardMaterial 
              color={theme === "light" ? "#FF4D00" : "#E0FF22"} 
              wireframe 
              transparent 
-             opacity={0.4} 
+             opacity={isGodMode ? 0.8 : 0.4} 
            />
         </mesh>
-        <mesh scale={0.6}>
+        <mesh scale={isGodMode ? 1.0 : 0.6}>
            <octahedronGeometry args={[1, 0]} />
            <MeshWobbleMaterial 
              color={theme === "light" ? "#FF4D00" : "#E0FF22"} 
-             factor={1.5} 
-             speed={3} 
+             factor={isGodMode ? 5 : 1.5} 
+             speed={isGodMode ? 10 : 3} 
              emissive={theme === "light" ? "#FF4D00" : "#E0FF22"}
-             emissiveIntensity={10}
+             emissiveIntensity={isGodMode ? 50 : 10}
            />
         </mesh>
       </group>
@@ -115,7 +123,7 @@ function Core({ theme }: { theme: string }) {
             />
          </bufferGeometry>
          <pointsMaterial 
-           size={0.03} 
+           size={isGodMode ? 0.1 : 0.03} 
            color={theme === "light" ? "#FF4D00" : "#E0FF22"} 
            transparent 
            opacity={0.6} 
@@ -123,7 +131,7 @@ function Core({ theme }: { theme: string }) {
          />
       </points>
 
-      <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+      <Stars radius={100} depth={50} count={isGodMode ? 15000 : 5000} factor={isGodMode ? 20 : 4} saturation={0} fade speed={isGodMode ? 50 : 1} />
     </>
   );
 }

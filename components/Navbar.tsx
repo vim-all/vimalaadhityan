@@ -11,9 +11,9 @@ export function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-2xl font-display font-extrabold tracking-tighter mix-blend-difference text-white uppercase"
+          className="text-xl font-display font-extrabold tracking-tighter mix-blend-difference text-white uppercase flex items-center gap-2"
         >
-          VIMAL.
+          Vimalaadhityan
         </Link>
 
         {/* Floating Nav Pill */}

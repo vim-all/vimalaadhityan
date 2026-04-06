@@ -19,7 +19,7 @@ export function ThemeToggle() {
 
   const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
     const isDark = theme === "dark";
-    
+
     // Check if View Transitions API is supported
     if (!document.startViewTransition) {
       setTheme(isDark ? "light" : "dark");
@@ -45,14 +45,12 @@ export function ThemeToggle() {
 
       document.documentElement.animate(
         {
-          clipPath: isDark ? [...clipPath].reverse() : clipPath,
+          clipPath,
         },
         {
-          duration: 1000,
+          duration: 1200,
           easing: "cubic-bezier(0.8, 0, 0.2, 1)",
-          pseudoElement: isDark
-            ? "::view-transition-old(root)"
-            : "::view-transition-new(root)",
+          pseudoElement: "::view-transition-new(root)",
         }
       );
     });
