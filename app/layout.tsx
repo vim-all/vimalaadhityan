@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CustomCursor } from "@/components/CustomCursor";
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const syne = Syne({
   variable: "--font-syne",
@@ -46,6 +48,8 @@ export default function RootLayout({
           <SmoothScroll>
             <Navbar />
             <main className="flex-1 flex flex-col">{children}</main>
+            <Analytics />
+            <SpeedInsights />
           </SmoothScroll>
         </ThemeProvider>
       </body>
