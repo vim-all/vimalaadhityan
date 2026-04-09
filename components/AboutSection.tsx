@@ -16,9 +16,25 @@ interface BentoCardProps {
 }
 
 function BentoCard({ children, className = "", delay = 0, title, onClick, is3D, mouseX, mouseY }: BentoCardProps) {
-  const fallback = useMotionValue(0);
-  const rotateX = useTransform(mouseY || fallback, [-0.5, 0.5], [10, -10]);
-  const rotateY = useTransform(mouseX || fallback, [-0.5, 0.5], [-10, 10]);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const localMouseX = useMotionValue(0.5);
+  const localMouseY = useMotionValue(0.5);
+
+  const rotateX = useTransform(localMouseY, [0, 1], [10, -10]);
+  const rotateY = useTransform(localMouseX, [0, 1], [-10, 10]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!is3D || !cardRef.current) return;
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    localMouseX.set((e.clientX - left) / width);
+    localMouseY.set((e.clientY - top) / height);
+  };
+
+  const handleMouseLeave = () => {
+    if (!is3D) return;
+    localMouseX.set(0.5);
+    localMouseY.set(0.5);
+  };
 
   return (
     <motion.div
@@ -28,6 +44,9 @@ function BentoCard({ children, className = "", delay = 0, title, onClick, is3D, 
       transition={{ duration: 0.8, delay, ease: [0.215, 0.61, 0.355, 1] }}
       whileHover={{ y: -5, scale: 1.01 }}
       onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      ref={cardRef}
       style={{
         boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.5)",
         rotateX: is3D ? rotateX : 0,
