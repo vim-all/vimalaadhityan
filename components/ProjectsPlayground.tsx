@@ -3,7 +3,7 @@
 import { useRef, useEffect, useMemo, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion";
 import { useTheme } from "next-themes";
 
 const projects = [
@@ -169,6 +169,28 @@ function ParticleMorphingScene({ themedProjects }: { themedProjects: any[] }) {
   );
 }
 
+function SectionHeader({ smoothProgress, themedProjects }: { smoothProgress: any, themedProjects: any[] }) {
+  const [activeColor, setActiveColor] = useState(themedProjects[0]?.color || "var(--accent)");
+  const step = 1 / (themedProjects.length + 1);
+
+  useMotionValueEvent(smoothProgress, "change", (latest: number) => {
+    const idx = Math.min(Math.floor(latest / step), themedProjects.length - 1);
+    if (idx >= 0 && themedProjects[idx]) {
+      setActiveColor(themedProjects[idx].color);
+    }
+  });
+
+  return (
+    <div className="absolute top-[14vh] md:top-[12vh] left-1/2 -translate-x-1/2 z-30 font-mono text-center w-full px-4 pointer-events-none">
+      <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+        <h3 className="text-xl md:text-3xl lg:text-4xl font-display font-black uppercase tracking-tighter mix-blend-difference">
+          Featured <span className="italic font-light transition-colors duration-500" style={{ color: activeColor }}>Projects</span>
+        </h3>
+      </motion.div>
+    </div>
+  );
+}
+
 function ProjectItem({ p, idx, smoothProgress, step }: { p: any, idx: number, smoothProgress: any, step: number }) {
   const start = idx * step;
   const end = start + step;
@@ -182,27 +204,27 @@ function ProjectItem({ p, idx, smoothProgress, step }: { p: any, idx: number, sm
 
   return (
     <motion.div
-      className="absolute flex flex-col justify-center left-[5vw] md:left-[10vw] w-[90vw] md:w-[80vw] h-screen pointer-events-none origin-left"
+      className="absolute top-[58%] -translate-y-1/2 flex flex-col justify-center left-[5vw] md:left-[10vw] w-[90vw] md:w-[80vw] pointer-events-none origin-left"
       style={{ opacity, scale, filter, skewY }}
     >
       <div className="overflow-hidden pointer-events-auto w-fit">
-        <span className="font-mono text-xs md:text-sm tracking-[0.2em] mb-4 block opacity-50 uppercase">0{idx + 1} / Project</span>
+        <span className="font-mono text-xs md:text-sm tracking-[0.2em] mb-2 block opacity-50 uppercase">0{idx + 1} / Project</span>
       </div>
 
       <h3
-        className="text-4xl md:text-[6rem] lg:text-[7rem] xl:text-[8rem] leading-[0.85] font-display font-black uppercase text-foreground tracking-tighter mix-blend-difference pointer-events-auto wrap-break-word hyphens-auto whitespace-normal max-w-full"
+        className="text-3xl md:text-[5rem] lg:text-[6rem] xl:text-[6.5rem] leading-[0.85] font-display font-black uppercase text-foreground tracking-tighter mix-blend-difference pointer-events-auto wrap-break-word hyphens-auto whitespace-normal max-w-full"
         style={{ color: p.color, WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}
       >
         {p.name}
       </h3>
 
-      <div className="mt-6 md:mt-12 relative backdrop-blur-md bg-background/20 border border-foreground/5 p-5 md:p-8 rounded-2xl shadow-2xl pointer-events-auto max-w-xl lg:max-w-2xl">
+      <div className="mt-4 md:mt-8 relative backdrop-blur-md bg-background/20 border border-foreground/5 p-4 md:p-6 rounded-2xl shadow-2xl pointer-events-auto max-w-xl lg:max-w-2xl">
         <div className="absolute inset-0 bg-linear-to-br from-foreground/5 to-transparent rounded-2xl pointer-events-none"></div>
-        <p className="text-lg lg:text-3xl font-light text-foreground/90 leading-snug">
+        <p className="text-base lg:text-2xl font-light text-foreground/90 leading-snug">
           {p.desc}
         </p>
-        <div className="mt-8 flex flex-col pt-6 border-t border-foreground/10">
-          <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-foreground/40 mb-2">Tech Stack</span>
+        <div className="mt-6 flex flex-col pt-4 border-t border-foreground/10">
+          <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-foreground/40 mb-1">Tech Stack</span>
           <span className="font-mono text-xs md:text-sm lg:text-base text-foreground/80 leading-relaxed max-w-full wrap-break-word">{p.stack}</span>
         </div>
       </div>
@@ -255,6 +277,9 @@ export function ProjectsPlayground() {
     <div ref={containerRef} id="projects" className="relative w-full" style={{ height: '600vh' }}>
 
       <div className="sticky top-0 w-full h-screen bg-background overflow-hidden selection:bg-accent/30">
+
+        {/* Section Label / Transition Header */}
+        <SectionHeader smoothProgress={smoothProgress} themedProjects={themedProjects} />
 
         {/* Background text decoration */}
         <h2 className="absolute top-[10vh] left-[-5vw] text-[20vw] font-display font-black leading-none uppercase mix-blend-overlay text-foreground opacity-[0.03] pointer-events-none whitespace-nowrap overflow-hidden z-0">

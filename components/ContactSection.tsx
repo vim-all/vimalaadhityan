@@ -89,7 +89,7 @@ export function ContactSection() {
   const phrase2 = "PROJECT.".split("");
 
   return (
-    <div ref={sectionRef} className="relative w-full h-screen min-h-[800px] overflow-hidden bg-transparent">
+    <div ref={sectionRef} id="contact" className="relative w-full h-screen min-h-[800px] overflow-hidden bg-transparent">
       {/* We use a deeply nested sticky container to simulate a "Curtain Drop" */}
       <div
         className="absolute top-0 left-0 w-full h-screen min-h-[800px] overflow-hidden rounded-t-[4rem] bg-foreground text-background"
@@ -142,16 +142,16 @@ export function ContactSection() {
               </div>
 
               <div className="flex flex-wrap gap-x-8 gap-y-4 font-mono uppercase text-sm font-bold tracking-widest">
-                <a href="#" className="hover:text-accent transition-colors relative group">
-                  Twitter
+                <a href="https://github.com/vim-all" target="_blank" className="hover:text-accent transition-colors relative group">
+                  Github
+                  <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
+                </a>
+                <a href="https://leetcode.com/u/vimal_299/" target="_blank" className="hover:text-accent transition-colors relative group">
+                  Leetcode
                   <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-pink transition-all duration-300 group-hover:w-full group-hover:left-0" />
                 </a>
                 <a href="https://www.linkedin.com/in/vimalaadhityan/" target="_blank" className="hover:text-accent transition-colors relative group">
                   LinkedIn
-                  <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
-                </a>
-                <a href="https://github.com/vim-all" target="_blank" className="hover:text-accent transition-colors relative group">
-                  Github
                   <span className="absolute -bottom-1 right-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
                 </a>
               </div>

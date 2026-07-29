@@ -165,7 +165,7 @@ export function AboutSection() {
   const bioParallaxY = useTransform(smoothMouseY, [-0.5, 0.5], [-30, 30]);
 
   const techStack = [
-    "Node.js", "React.js", "Next.js", "TypeScript", "Python", "Go", "Rust", "GenAI", "PostgreSQL", "MongoDB",
+    "Go", "Node.js", "React.js", "Next.js", "TypeScript", "Python", "Rust", "Java", "GenAI", "PostgreSQL", "MongoDB",
   ];
 
   return (
@@ -212,15 +212,9 @@ export function AboutSection() {
           >
             <motion.div style={{ x: bioParallaxX, y: bioParallaxY, translateZ: 80 }} className="relative">
               <p className="text-xl lg:text-3xl font-light leading-snug text-foreground/90 italic tracking-tight">
-                An unusually curious student who loves building things—sometimes full-stack apps, sometimes random experiments just to understand how stuff works. I'm currently diving into backend systems, apis, and making ui's that actually feel good to use. I enjoy solving problems, breaking things (and then fixing them), and learning by doing.
+                An unusually curious student who loves building things—sometimes full-stack apps, sometimes random experiments just to understand how stuff works. I'm currently diving into backend systems, api's, and making ui's that actually feel good to use. I enjoy solving problems, breaking things (and then fixing them), and learning by doing.
               </p>
             </motion.div>
-            <div className="mt-12 flex items-center gap-6 group cursor-pointer h-12">
-              <div className="w-12 h-12 rounded-full border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500 group-hover:scale-110">
-                <Sparkles className="w-5 h-5 text-accent group-hover:text-background" />
-              </div>
-              <span className="font-mono text-[10px] uppercase tracking-widest opacity-40 group-hover:opacity-100 transition-all duration-500 group-hover:translate-x-2">Initializing Process Stream -{">"}</span>
-            </div>
           </BentoCard>
 
           {/* Kinetic Stack Pit - Fixed Containment & Initial Layout */}
